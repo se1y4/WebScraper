@@ -15,14 +15,10 @@ func Scraping(url string) {
 	c.SetRequestTimeout(120 * time.Second)
 	products := make([]Product, 0)
 
-	c.OnHTML("tr", func(e *colly.HTMLElement) {
-		e.ForEach("td", func(i int, h *colly.HTMLElement) {
+	c.OnHTML("tbody", func(e *colly.HTMLElement) {
+		e.ForEach("tr", func(i int, h *colly.HTMLElement) {
 			item := Product{}
-			item.Code = h.Text
-			item.Letter_code = h.Text
-			item.Units = h.Text
-			item.Currency = h.Text
-			item.Currency_rate = h.Text
+			item.Currency = h.ChildText("td")
 			products = append(products, item)
 		})
 
