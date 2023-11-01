@@ -1,8 +1,9 @@
 package scrap
 
 type Product struct {
-	Name  string
-	Image string
-	Price string
-	Url   string
+	Code          string
+	Letter_code   string
+	Units         string
+	Currency      string
+	Currency_rate string
 }

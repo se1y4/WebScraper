@@ -10,12 +10,21 @@ import (
 	"github.com/gocolly/colly"
 )
 
-func Scraping() {
+func Scraping(url string) {
 	c := colly.NewCollector()
 	c.SetRequestTimeout(120 * time.Second)
 	products := make([]Product, 0)
 
-	c.OnHTML(".grid-row products-list .col col-xxl-4 col-sm-6 col-xs-12", func(e *colly.HTMLElement) {
+	c.OnHTML("tr", func(e *colly.HTMLElement) {
+		e.ForEach("td", func(i int, h *colly.HTMLElement) {
+			item := Product{}
+			item.Code = h.Text
+			item.Letter_code = h.Text
+			item.Units = h.Text
+			item.Currency = h.Text
+			item.Currency_rate = h.Text
+			products = append(products, item)
+		})
 
 	})
 
@@ -44,6 +53,6 @@ func Scraping() {
 
 	})
 
-	c.Visit("https://novosib.24ff.ru/catalog/bady")
+	c.Visit(url)
 
 }

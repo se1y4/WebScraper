@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	scrap.Scraping()
+	scrap.Scraping("https://cbr.ru/currency_base/daily/")
 
 }
